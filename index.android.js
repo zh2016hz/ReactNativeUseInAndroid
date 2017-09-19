@@ -3,7 +3,7 @@
  * https://github.com/facebook/react-native
  * @flow
  */
- import { NativeModules} from 'react-native';
+import { NativeModules} from 'react-native';
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -16,6 +16,7 @@ export default class PathDemo extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <ComponentSSS text="你好中国"></ComponentSSS>
         <Text  style={styles.welcome}  onPress={this.callPress.bind(this)}>
           傻大姐撒旦ssss1wwwqqw啊啊所多sss
         </Text>
@@ -33,7 +34,27 @@ export default class PathDemo extends Component {
   NativeModules.MyNativeMoudle.rnCallNative("sas");
   }
 }
+class  ComponentSSS extends Component{
+  constructor(props) {
+    super(props);
+    this.state = { showText: true };
 
+    // 每1000毫秒对showText状态做一次取反操作
+    setInterval(() => {
+      this.setState(previousState => {
+        return { showText: !previousState.showText };
+      });
+    }, 1000);
+  }
+  render(){
+    let display = this.state.showText ? this.props.text : ' ';
+    return(
+      <Text>
+        {display}
+      </Text>
+    );
+  }
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
