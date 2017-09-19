@@ -27,6 +27,11 @@ export default class PathDemo extends Component {
           Double tap R on your keyboard to reload,{'\n'}
           Shake or press menu button for dev menu
         </Text>
+        <View style={{height:30,width:50,backgroundColor:'red'}}></View>
+
+        <View style={{height:30,width:50,backgroundColor:'blue'}}></View>
+
+        <View style={{height:30,width:50,backgroundColor:'yellow'}}></View>
       </View>
     );
   }
