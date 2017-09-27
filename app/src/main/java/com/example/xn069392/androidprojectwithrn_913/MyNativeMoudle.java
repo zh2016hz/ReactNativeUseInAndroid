@@ -49,9 +49,7 @@ public class MyNativeMoudle extends ReactContextBaseJavaModule {
 //                    模拟网络请求数据的操作
                     String result = "我是请求结果";
                     callback.invoke(true, result);
-
                 } catch (Exception e) {
-
                 }
             }
         }).start();

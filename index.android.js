@@ -3,43 +3,104 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-import { NativeModules} from 'react-native';
+import { NativeModules } from 'react-native';
 import React, { Component } from 'react';
+import {
+  StackNavigator,
+} from 'react-navigation';
+
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
+  View,
+  Image,
+  TouchableHighlight,
+  TouchableOpacity
 
+} from 'react-native';
+var data =
+  [
+    {
+      icon: require("./react_native/pic/aa.jpg"),
+      title: "sscac"
+    },
+    {
+      icon: require("./react_native/pic/aa.jpg"),
+      title: "ddwdwwd"
+    }, {
+      icon: require("./react_native/pic/aa.jpg"),
+      title: "sscac"
+    },
+    {
+      icon: require("./react_native/pic/aa.jpg"),
+      title: "sscac"
+    },
+    {
+      icon: require("./react_native/pic/aa.jpg"),
+      title: "ddwdwwd"
+    },
+
+    {
+      icon: require("./react_native/pic/aa.jpg"),
+      title: "ddssswdwwd"
+    }
+  ]
+
+  //获取屏幕高度
+var Dimensions = require('Dimensions');
+var  {width,height}  =   Dimensions.get('window');
+
+var  col  =   3;
+var  itemWidth = 100;
+var  marginData = (width - itemWidth * col)/(col+1);
+var dataJson = require('./PakageJson.json');
 export default class PathDemo extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ComponentSSS text="你好中国"></ComponentSSS>
-        <Text  style={styles.welcome}  onPress={this.callPress.bind(this)}>
-          傻大姐撒旦ssss1wwwqqw啊啊所多sss
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-        <View style={{height:30,width:50,backgroundColor:'red'}}></View>
 
-        <View style={{height:30,width:50,backgroundColor:'blue'}}></View>
-
-        <View style={{height:30,width:50,backgroundColor:'yellow'}}></View>
+        {this._showPakageView()}
+        {/* <Text>ssssssss</Text> */}
       </View>
     );
   }
-  callPress(){
-  NativeModules.MyNativeMoudle.rnCallNative("sas");
+  callPress() {
+    NativeModules.MyNativeMoudle.rnCallNative("sas");
+  }
+  callNavigator() {
+
+  }
+  _showPakageView() {
+    var allImage = [];
+    for (var i = 0; i < data.length; i++) {
+      var icons = data[i].icon;
+      var titles = data[i].title;
+      allImage.push(
+        <View  key={i} style={{alignItems:'center',width:itemWidth,marginLeft:marginData,marginTop:marginData}}>
+
+          {/* <Image source = {require('./react_native/pic/aa.jpg')} style={{height:80,width:80} }></Image>   */}
+          <Image source={icons} style={{ height: 80, width: itemWidth }}></Image>
+
+          {/* <Image source={{uri: 'b'}} style={{width: 40, height: 40}} /> */}
+          {/* <Image source = {require({icons})} style={{height:80,width:80} }></Image> */}
+
+          {/* <Image source={require('./react_native/pic/k.jpg')} style={{height:80,width:80}}></Image> */}
+          <Text>{titles}</Text>
+        </View>);
+    }
+    return allImage;
+  }
+  _onPressButton() {
+    alert("sssssssssssss");
+  }
+  _dorequestNet() {
+    NativeModules.MyNativeMoudle.getResult("sssss", (result, result1) => { alert(result1) }
+
+    );
   }
 }
-class  ComponentSSS extends Component{
+class ComponentSSS extends Component {
   constructor(props) {
     super(props);
     this.state = { showText: true };
@@ -51,9 +112,9 @@ class  ComponentSSS extends Component{
       });
     }, 1000);
   }
-  render(){
+  render() {
     let display = this.state.showText ? this.props.text : ' ';
-    return(
+    return (
       <Text>
         {display}
       </Text>
@@ -63,9 +124,9 @@ class  ComponentSSS extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection:'row',
     backgroundColor: '#F5FCFF',
+    flexWrap:'wrap',
   },
   welcome: {
     fontSize: 20,
