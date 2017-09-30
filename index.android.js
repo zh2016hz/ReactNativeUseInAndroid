@@ -17,22 +17,62 @@ import {
   TouchableOpacity
 
 } from 'react-native';
-import LunBotu from './Lunbotu.js';
+import ListViewData from './NaviBar.js';
+
+// // 引入标题
+// import {
+//   StackNavigator,
+// } from 'react-navigation';
+
+import  JiuGongge  from './ListView_JiugongGe';
 
 //获取屏幕高度
 var Dimensions = require('Dimensions');
 var { widths, height } = Dimensions.get('window');
 
-export default class PathDemo extends Component {
+class PathDemo extends Component {
+  static navigationOptions = {
+    title: 'Welcome',
+  };
   render() {
+    const { navigate } = this.props.navigation;
+
+    return <View>
+      <Text>Hello, Navigation!</Text>
+      <Button
+        onPress={() => navigate('Profile', { user: 'Lucy' })}
+        title="Chat with Lucy"
+      />
+    </View>;
+  }
+
+}
+
+
+class ChatScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: `Chat with ${navigation.state.params.user}`,
+  });
+  render() {
+    const { params } = this.props.navigation.state;
+    const { navigate } = this.props.navigation;
+    
     return (
-     <LunBotu/>
+      <View>
+        <Text>Chat with {params.user}</Text>
+        <Button onPress={()=>navigate('JiuGongge',{haha:'耗子'})}
+          title= "九宫格"
+          />
+      </View>
     );
   }
-  _onclick(){
-    console.log('ssssss');
-  }
 }
+
+const App = StackNavigator({
+  Main: { screen: PathDemo },
+  Profile: { screen: ChatScreen },
+  JiuGongge:{screen : JiuGongge},
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -43,4 +83,4 @@ const styles = StyleSheet.create({
 
 });
 
-AppRegistry.registerComponent('GAGA', () => PathDemo);
+AppRegistry.registerComponent('GAGA', () => App);

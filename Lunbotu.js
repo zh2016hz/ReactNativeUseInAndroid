@@ -46,8 +46,9 @@ export default class Lunbo extends Component {
           //当一帧结束
           onMomentumScrollEnd={(e) => this.onAnimationEnd(e)}
           //开始拖拽
-          onScrollBeginDrag={this.onScrollBeginDrag()}
-        // 
+          onScrollBeginDrag={this.onScrollBeginDrag}
+          // 停止拖
+          onScrollEndDrag={this.onScrollEndDrag()}
         >
           {this._itemView()}
         </ScrollView>
@@ -59,14 +60,33 @@ export default class Lunbo extends Component {
       </View>
     );
   }
-/**
- * 开始脱
- */
-  onScrollBeginDrag(){
+  /**
+   * 开始脱
+   */
+  onScrollBeginDrag() {
     // // 停止计时器
-    // this.clearInterval(this.timer);
+    // this.timer && clearInterval(this.timer);
   }
+  onScrollEndDrag() {
+    // this.timer = setInterval(() => {
+    //   console.log('把一个定时器的引用挂在this上');
+    //   // 设置起始点
+    //   var startPage = 0;
+    //   //判断  
+    //   if ((this.state.currentPage + 1) >= LunDataJson.data.length) {
+    //     startPage = 0;
+    //   } else {
+    //     startPage = this.state.currentPage + 1;
+    //   }
+    //   // 更新状态
+    //   this.setState({ currentPage: startPage });
+    //   // 滚动
+    //   var offset = startPage * Dimensions.get('window').width;
+    //   this.refs.scroll.scrollResponderScrollTo({ x: offset, y: 0, animated: true });
 
+
+    // }, 500);
+  }
   _itemView() {
     var reArr = [];
     var data = LunDataJson.data;
@@ -119,7 +139,7 @@ export default class Lunbo extends Component {
       scrollView.scrollResponderScrollTo({ x: offset, y: 0, animated: true });
 
 
-    }, 500);
+    }, 1500);
     // this.timer = setTimeout(
     //   () => { console.log('把一个定时器的引用挂在this上'); },
     //   500
@@ -140,8 +160,6 @@ export default class Lunbo extends Component {
 
 const styles = StyleSheet.create({
   container: {
-
-
   },
 
 });
