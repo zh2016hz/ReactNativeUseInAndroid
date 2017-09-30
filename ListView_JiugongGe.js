@@ -42,7 +42,7 @@ export default class JGG extends Component {
     const { params } = this.props.navigation.state;
     return (
     <View>
-      <Text>
+      <Text onPress={()=>{this.props.navigation.goBack()}}>
         {params.haha};
       </Text>
       <ListView
