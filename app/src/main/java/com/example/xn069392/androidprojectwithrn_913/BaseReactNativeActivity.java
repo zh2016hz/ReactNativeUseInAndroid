@@ -3,6 +3,7 @@ package com.example.xn069392.androidprojectwithrn_913;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.widget.LinearLayout;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
@@ -13,11 +14,19 @@ import com.facebook.react.shell.MainReactPackage;
 public class BaseReactNativeActivity extends Activity implements DefaultHardwareBackBtnHandler {
 
     private ReactRootView mReactRootView;
+    private LinearLayout mReactLayout;
     private ReactInstanceManager mReactInstanceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**
+         *  1,添加下面2行代码
+         */
+        setContentView(R.layout.activity_my_base_layout);
+        mReactLayout = (LinearLayout)findViewById(R.id.layout);
+
+
         mReactRootView = new ReactRootView(this);
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
@@ -31,7 +40,12 @@ public class BaseReactNativeActivity extends Activity implements DefaultHardware
                 .build();
         //这里的ReactNativeView对   应index.android.js中AppRegistry.registerComponent('ReactNativeView', () => ReactNativeView)的ReactNativeView
         mReactRootView.startReactApplication(mReactInstanceManager, "GAGA", null);
-        setContentView(mReactRootView);
+        /**
+         *  2,注释下面第一行 ，更改为
+         */
+//        setContentView(mReactRootView);
+        mReactLayout.addView(mReactRootView);
+
     }
 
     @Override
